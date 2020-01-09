@@ -158,6 +158,7 @@ class PassController extends Controller
         public function gitpush(){
             $b='cd /wwwroot/passport && git pull';
             shell_exec($b);
+            
         }
         
 }
