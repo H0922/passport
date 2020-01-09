@@ -17,6 +17,10 @@ Route::get('/', function () {
 Route::get('/phpinfo', function () {
     phpinfo();
 });
-Route::get('week','Alipay\AlipayController@week');
+Route::post('pass/reg','Passport\PassController@reg');
+Route::post('pass/login','Passport\PassController@login');
+Route::get('pass/Userinfo','Passport\PassController@Userinfo');
+Route::post('gitpush','Passport\PassController@gitpush');
+
 
 
