@@ -113,7 +113,7 @@ class PassController extends Controller
                 ];
                 return $json;
             }
-            $token=$_GET['token'];
+            $token=$_GET['token']??'';
             if($token){
                 $json=[
                     'error'=>'6018',
