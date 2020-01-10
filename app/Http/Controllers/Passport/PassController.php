@@ -12,6 +12,14 @@ class PassController extends Controller
       //注册接口
     public function reg(){
         $data=$_POST;
+        if($data['pwds']!=$data['pass_pwd']){
+            $json=[
+                'error'=>'6020',
+                'msg'=>'两次密码不一致'
+            ];
+            return $json;
+        }
+        unset($data['pwds']);
         $res=Pass::insert($data);
         if($res){
             $json=[
@@ -113,7 +121,9 @@ class PassController extends Controller
                 ];
                 return $json;
             }
-            $token=$_GET['token']??'';
+            $token=$_SERVER['HTTP_TOKEN']??'';
+            die;
+            // $token=$_GET['token']??'';
             if(empty($token)){
                 $json=[
                     'error'=>'6018',
