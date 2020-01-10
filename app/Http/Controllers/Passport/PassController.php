@@ -106,7 +106,7 @@ class PassController extends Controller
         //获取用户信息
         public function Userinfo(){
             $name=$_GET['name']??'';
-            if($name){
+            if(empty($name)){
                 $json=[
                     'error'=>'6012',
                     'msg'=>'您缺少name参数'
@@ -114,7 +114,7 @@ class PassController extends Controller
                 return $json;
             }
             $token=$_GET['token']??'';
-            if($token){
+            if(empty($token)){
                 $json=[
                     'error'=>'6018',
                     'msg'=>'您缺少token参数'
