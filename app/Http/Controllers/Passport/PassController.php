@@ -37,17 +37,17 @@ class PassController extends Controller
 
     //登录
     public function login(){
-      
         $name=$_POST['name']??'';
         $pwd=$_POST['pwd']??'';
-
+        $strtoken=Str::random(32);
         $res=Pass::where('pass_name','=',$name)->first();
         if($res){
             $pwds=$res->pass_pwd;
             if($pwds==$pwd){
                 $json=[
                     'error'=>'ok',
-                    'msg'=>'登录成功'
+                    'msg'=>'登录成功',
+                    'token'=>$strtoken
                 ];
             }else{
                 $json=[
@@ -62,7 +62,8 @@ class PassController extends Controller
                 if ($pwds==$pwd) {
                     $json=[
                         'error'=>'ok',
-                        'msg'=>'登录成功'
+                        'msg'=>'登录成功',
+                        'token'=>$strtoken
                     ];
                 } else {
                     $json=[
@@ -76,8 +77,9 @@ class PassController extends Controller
                     $pwds=$res->pass_pwd;
                     if ($pwds==$pwd) {
                         $json=[
-                        'error'=>'ok',
-                        'msg'=>'登录成功'
+                            'error'=>'ok',
+                            'msg'=>'登录成功',
+                            'token'=>$strtoken
                     ];
                     } else {
                         $json=[
@@ -95,7 +97,6 @@ class PassController extends Controller
         }
         
        if($json['error']=='ok'){
-           $strtoken=Str::random(32);
            echo $strtoken;
            echo '<hr>';
             $prive='ABCD';
@@ -122,7 +123,7 @@ class PassController extends Controller
                 return $json;
             }
             $token=$_SERVER['HTTP_TOKEN']??'';
-            die;
+            // die;
             // $token=$_GET['token']??'';
             if(empty($token)){
                 $json=[
