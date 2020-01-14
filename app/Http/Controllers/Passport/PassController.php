@@ -119,18 +119,11 @@ class PassController extends Controller
         }
         
        if($json['error']=='ok'){
-     
-           echo $strtoken;
-           echo '<hr>';
             $prive='ABCD';
             $token=md5($name.$prive);
             $key='str:u:'.$token;
             Redis::set($key,$strtoken);
             Redis::expire($key,3600*7);
-            // Redis::del($key);
-            echo '<hr>';
-            echo Redis::get($key);
-            echo '<hr>';
        }
            return $json;
     }
