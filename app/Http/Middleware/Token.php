@@ -15,8 +15,6 @@ class Token
      */
     public function handle($request, Closure $next)
     {
-        echo '这是中间件验证';
-        echo '<hr>';
         $name = $request->get('name');
         // echo $name;
         if(empty($name)){
@@ -34,13 +32,10 @@ class Token
             ];
             return response()->json($json);
         }
-        echo $token;
-        echo '<hr>';
         $prive='ABCD';
         $key=md5($name.$prive);
         $key='str:u:'.$key;
         $tokens=Redis::get($key);
-        echo $tokens;
         if($token!=$tokens){
             $json=[
                 'error'=>'6009',

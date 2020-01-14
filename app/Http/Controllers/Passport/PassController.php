@@ -62,6 +62,7 @@ class PassController extends Controller
         $name=$_POST['name']??'';
         $pwd=$_POST['pwd']??'';
         $strtoken=Str::random(32);
+        // dd(11);
         $res=Pass::where('pass_name','=',$name)->first();
         if($res){
             $pwds=$res->pass_pwd;
@@ -126,7 +127,7 @@ class PassController extends Controller
             Redis::set($key,$strtoken);
             Redis::expire($key,3600*7);
        }
-           return json_encode($json);
+           return $json;
     }
 
         //获取用户信息
@@ -168,7 +169,10 @@ class PassController extends Controller
             }          
         }
 
-        
+        //验证token
+        public function token(){
+
+        }
         public function gitpush(){
             $b='cd /wwwroot/passport && git pull';
             shell_exec($b);
