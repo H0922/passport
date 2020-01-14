@@ -175,7 +175,7 @@ class PassController extends Controller
                 'error'=>'ok',
                 'msg'=>'请求成功'
             ];
-            return
+            return $json;
         }
         public function gitpush(){
             $b='cd /wwwroot/passport && git pull';
