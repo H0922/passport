@@ -126,7 +126,7 @@ class PassController extends Controller
             Redis::set($key,$strtoken);
             Redis::expire($key,3600*7);
        }
-           return $json;
+           return json_encode($json);
     }
 
         //获取用户信息
