@@ -119,6 +119,7 @@ class PassController extends Controller
         }
         
        if($json['error']=='ok'){
+            cookie([$name=>$strtoken]);
             $prive='ABCD';
             $token=md5($name.$prive);
             $key='str:u:'.$token;
