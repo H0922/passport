@@ -171,7 +171,11 @@ class PassController extends Controller
 
         //验证token
         public function token(){
-
+            $json=[
+                'error'=>'ok',
+                'msg'=>'请求成功'
+            ];
+            return
         }
         public function gitpush(){
             $b='cd /wwwroot/passport && git pull';
