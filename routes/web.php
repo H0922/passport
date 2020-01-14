@@ -19,7 +19,7 @@ Route::get('/phpinfo', function () {
 });
 Route::post('pass/reg','Passport\PassController@reg');
 Route::post('pass/login','Passport\PassController@login');
-Route::get('pass/Userinfo','Passport\PassController@Userinfo');
+Route::get('pass/Userinfo','Passport\PassController@Userinfo')->middleware('token');
 Route::post('gitpush','Passport\PassController@gitpush');
 
 

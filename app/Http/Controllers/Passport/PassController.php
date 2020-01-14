@@ -12,6 +12,33 @@ class PassController extends Controller
       //注册接口
     public function reg(){
         $data=$_POST;
+        $name=$data['pass_name'];
+        $res=Pass::where('pass_name','=',$name)->first();
+        if($name==$res['pass_name']){
+            $json=[
+                'error'=>'6030',
+                'msg'=>'用户名已存在'
+            ];
+            return $json;
+        }
+        $email=$data['pass_email'];
+        $r=Pass::where('pass_email','=',$email)->first();
+        if($email==$r['pass_email']){
+            $json=[
+                'error'=>'6033',
+                'msg'=>'邮箱已存在'
+            ];
+            return $json;
+        }
+        $tel=$data['pass_tel'];
+        $s=Pass::where('pass_tel','=',$tel)->first();
+        if($tel==$s['pass_tel']){
+            $json=[
+                'error'=>'6035',
+                'msg' => '手机号已存在'
+            ];
+            return $json;
+        }
         if($data['pwds']!=$data['pass_pwd']){
             $json=[
                 'error'=>'6020',
@@ -25,11 +52,6 @@ class PassController extends Controller
             $json=[
                 'error'=>'ok',
                 'msg'=>'注册成功'
-            ];
-        }else{
-            $json=[
-                'error'=>'6001',
-                'msg'=>'注册失败'
             ];
         }
         return $json;
@@ -97,6 +119,7 @@ class PassController extends Controller
         }
         
        if($json['error']=='ok'){
+     
            echo $strtoken;
            echo '<hr>';
             $prive='ABCD';
@@ -115,37 +138,8 @@ class PassController extends Controller
         //获取用户信息
         public function Userinfo(){
             $name=$_GET['name']??'';
-            if(empty($name)){
-                $json=[
-                    'error'=>'6012',
-                    'msg'=>'您缺少name参数'
-                ];
-                return $json;
-            }
-            $token=$_SERVER['HTTP_TOKEN']??'';
-            // die;
-            // $token=$_GET['token']??'';
-            if(empty($token)){
-                $json=[
-                    'error'=>'6018',
-                    'msg'=>'您缺少token参数'
-                ];
-                return $json;
-            }
-            echo $token;
-            echo '<hr>';
-            $prive='ABCD';
-            $key=md5($name.$prive);
-            $key='str:u:'.$key;
-            $tokens=Redis::get($key);
-            echo $tokens;
-            if($token!=$tokens){
-                $json=[
-                    'error'=>'6009',
-                    'msg'=>'您的token有误，请重获取'
-                ];
-                return $json;
-            }
+            $mid_params = ['name'=>$name];
+            request()->attributes->add($mid_params);//添加参数
             $res=Pass::where('pass_name', '=', $name)->first();  
             if($res){
                 $json=json_encode($res);
