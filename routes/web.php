@@ -22,6 +22,8 @@ Route::post('pass/login','Passport\PassController@login');
 Route::get('pass/Userinfo','Passport\PassController@Userinfo')->middleware('token');
 Route::post('gitpush','Passport\PassController@gitpush');
 Route::get('token','Passport\PassController@token')->middleware('token');
+Route::get('test','Test\TestController@test');
+
 
 
 
